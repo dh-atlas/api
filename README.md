@@ -52,7 +52,7 @@ python setup.py install
    ```
 5. Access the API documentation: Open your browser and go to:
    ```bash
-   http://127.0.0.1:8081
+   http://127.0.0.1:8081/api/v1
    ```
 ---
 
