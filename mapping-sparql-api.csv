@@ -1,0 +1,85 @@
+Func number,ATLAS queries name,Queries SPARQL,REST API name version 1,REST method,Queries SPARQL example,,
+1,getRecords,"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+
+SELECT ?dataset
+  (GROUP_CONCAT(DISTINCT ?name; separator="" || "") AS ?names)
+  (GROUP_CONCAT(DISTINCT ?description; separator="" || "") AS ?descriptions)
+  (GROUP_CONCAT(DISTINCT ?creator; separator="" || "") AS ?creators)
+  (GROUP_CONCAT(DISTINCT ?contributor; separator="" || "") AS ?contributors)
+  (GROUP_CONCAT(DISTINCT ?publisher; separator="" || "") AS ?publishers)
+  (GROUP_CONCAT(DISTINCT ?inLanguage; separator="" || "") AS ?languages)
+  (GROUP_CONCAT(DISTINCT ?educationalUse; separator="" || "") AS ?educationalUses)
+  (GROUP_CONCAT(DISTINCT ?distribution; separator="" || "") AS ?distributions)
+  (GROUP_CONCAT(DISTINCT ?url; separator="" || "") AS ?urls)
+  (GROUP_CONCAT(DISTINCT ?producer; separator="" || "") AS ?producers)
+  ?additionalType
+  ?datePublished
+  ?conditionsOfAccess
+WHERE {
+  ?dataset <http://schema.org/name> ?name ; rdf:type <https://schema.org/Dataset> .
+  OPTIONAL { ?dataset <http://schema.org/description> ?description . }
+  OPTIONAL { ?dataset <http://schema.org/creator> ?creator . }
+  OPTIONAL { ?dataset <http://schema.org/publisher> ?publisher . }
+  OPTIONAL { ?dataset <http://schema.org/additionalType> ?additionalType . }
+  OPTIONAL { ?dataset <http://schema.org/datePublished> ?datePublished . }
+  OPTIONAL { ?dataset <http://schema.org/educationalUse> ?educationalUse . }
+  OPTIONAL { ?dataset <http://schema.org/distribution> ?distribution . }
+  OPTIONAL { ?dataset <http://schema.org/url> ?url . }
+  OPTIONAL { ?dataset <http://schema.org/conditionsOfAccess> ?conditionsOfAccess . }
+  OPTIONAL { ?dataset <http://schema.org/contributor> ?contributor . }
+  OPTIONAL { ?dataset <http://schema.org/inLanguage> ?inLanguage . }
+  OPTIONAL { ?dataset <http://schema.org/producer> ?producer . }
+}
+GROUP BY ?additionalType ?datePublished ?conditionsOfAccess ?dataset",endpoint/api/v1/records,get,,, 
+2,getClass,"SELECT DISTINCT (GROUP_CONCAT(DISTINCT ?class; SEPARATOR="";  "") AS ?classes)  WHERE {<""""""+res_uri+""""""> a ?class}",endpoint/api/v1/classes/{pid},get,"SELECT DISTINCT (GROUP_CONCAT(DISTINCT ?class; SEPARATOR="";  "") AS ?classes)  WHERE {<https://w3id.org/dh-atlas/1728943937-3007112> a ?class}",,
+3,get_URI_label,"PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        SELECT DISTINCT ?label WHERE {
+                <""""""+uri+""""""> (rdfs:label | skos:prefLabel) ?label
+        } ",endpoint/api/v1/labels/{pid},get,"PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        SELECT DISTINCT ?label WHERE {
+                <https://w3id.org/dh-atlas/1728943937-3007112> (rdfs:label | skos:prefLabel) ?label
+        } ",,
+4,id: 0__counter1_Entities__0,PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE { ?entity a ?class . },endpoint/api/v1/stats/entities,get,,,
+5,id: 0__counter2_Research_Projects__0,PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?project) as ?count) WHERE { ?project a <http://xmlns.com/foaf/0.1/Agent>; a <https://schema.org/ResearchProject> . },endpoint/api/v1/stats/projects,get,,,
+6,id: 0__counter3_Research_Products__0,PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?product) as ?count) WHERE { ?product a <https://schema.org/Dataset> . },endpoint/api/v1/stats/products,get,,,
+7,id: 0__counter4_Organizations__0,PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?organization) as ?count) WHERE { ?organization a <http://xmlns.com/foaf/0.1/Agent>; a <https://schema.org/Organization> . },endpoint/api/v1/stats/organizations,get,,,
+8,id: 0__counter5_Researchers__0,PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?person) as ?count) WHERE { ?person a <http://xmlns.com/foaf/0.1/Agent>; a <https://schema.org/Person> . },endpoint/api/v1/stats/persons,get,,,
+9,id: 3 (getLocations),"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?geonames ?label (COUNT(DISTINCT ?geonames) AS ?count)
+WHERE {
+?organization a <https://schema.org/Organization> .
+?organization <http://schema.org/location> ?geonames .
+?geonames rdfs:label ?label .
+}
+GROUP BY ?geonames ?label
+ORDER BY ?geonames",endpoint/api/v1/stats/organizations/by-location,get,,,
+10,id: 1 (getResearchProductsByType),"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?label (COUNT(?item) AS ?count)
+WHERE {
+GRAPH ?g {
+?item a <https://schema.org/Dataset> .
+?item <http://schema.org/additionalType> ?additionalType .
+?additionalType rdfs:label ?label .
+ }
+}
+GROUP BY ?label
+ORDER BY DESC(?count)",endpoint/api/v1/stats/products/by-additional-type,get,,,
+11,id: 2 (getResarchProductByOrganizations),"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?label (COUNT(DISTINCT ?researchProduct) AS ?count)
+WHERE {
+ ?researchProduct a <https://schema.org/Dataset> .
+ ?researchProduct ?contributor ?organization .
+ 
+GRAPH ?g {
+?organization a <https://schema.org/Organization> .
+?organization rdfs:label ?organizationLabel .
+BIND(STR(?organizationLabel) AS ?label)
+}
+}
+GROUP BY ?label
+ORDER BY DESC(?count)
+LIMIT 6",endpoint/api/v1/stats/products/by-organization,get,,,
