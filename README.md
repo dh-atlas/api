@@ -1,6 +1,6 @@
 # DH ATLAS REST API (v0.0.1) — RAMOSE Configuration
 
-This repository contains the initial configuration for generating a REST API for the DH ATLAS project using [RAMOSE](https://github.com/opencitations/ramose/releases).
+This repository contains the initial configuration for generating a REST API for the DH ATLAS project using [RAMOSE](https://github.com/opencitations/ramose).
 
 > ⚠️ Version 0.0.1 unofficial: the API currently works only in a local environment (`localhost`).
 
@@ -27,7 +27,7 @@ The configuration is defined in the `test.hf` file, compatible with RAMOSE.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/dh-atlas/API.git
+   git clone https://github.com/dh-atlas/api.git
    cd dh-atlas-api
    ```
 2. Create and activate a virtual environment (recommended):
