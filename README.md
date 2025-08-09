@@ -56,7 +56,7 @@ python setup.py install
    ```
 ---
 
-## 🔍 Available Endpoints
+## 🔍 Available Operations implemented by the API
 
 /records
 Returns metadata for each dataset in the DH ATLAS graph.
