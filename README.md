@@ -1,8 +1,8 @@
-# DH ATLAS REST API (v0.1) — RAMOSE Configuration
+# DH ATLAS REST API (v0.0.1) — RAMOSE Configuration
 
 This repository contains the initial configuration for generating a REST API for the DH ATLAS project using [RAMOSE](https://github.com/opencitations/ramose).
 
-> ⚠️ Version 0.1 unofficial: the API currently works only in a local environment (`localhost`).
+> ⚠️ Version 0.0.1 unofficial: the API currently works only in a local environment (`localhost`).
 
 ---
 
@@ -14,7 +14,7 @@ The configuration is defined in the `test.hf` file, compatible with RAMOSE.
 
 ---
 
-## 📂 Repository v0.1 Contents
+## 📂 Repository v0.0.1 Contents
 
 - `test.hf`: RAMOSE configuration file for the REST API.
 - `README.md`: this file.
