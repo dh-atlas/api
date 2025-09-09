@@ -93,20 +93,21 @@ SELECT ?dataset
   ?additionalType
   ?datePublished
   ?conditionsOfAccess
+
 WHERE {
-  ?dataset <http://schema.org/name> ?name ; rdf:type <https://schema.org/Dataset> .
-  OPTIONAL { ?dataset <http://schema.org/description> ?description . }
-  OPTIONAL { ?dataset <http://schema.org/creator> ?creator . }
-  OPTIONAL { ?dataset <http://schema.org/publisher> ?publisher . }
-  OPTIONAL { ?dataset <http://schema.org/additionalType> ?additionalType . }
-  OPTIONAL { ?dataset <http://schema.org/datePublished> ?datePublished . }
-  OPTIONAL { ?dataset <http://schema.org/educationalUse> ?educationalUse . }
-  OPTIONAL { ?dataset <http://schema.org/distribution> ?distribution . }
-  OPTIONAL { ?dataset <http://schema.org/url> ?url . }
-  OPTIONAL { ?dataset <http://schema.org/conditionsOfAccess> ?conditionsOfAccess . }
-  OPTIONAL { ?dataset <http://schema.org/contributor> ?contributor . }
-  OPTIONAL { ?dataset <http://schema.org/inLanguage> ?inLanguage . }
-  OPTIONAL { ?dataset <http://schema.org/producer> ?producer . }
+  ?dataset <https://schema.org/name> ?name ; rdf:type <https://schema.org/Dataset> .
+  OPTIONAL { ?dataset <https://schema.org/description> ?description . }
+  OPTIONAL { ?dataset <https://schema.org/creator> ?creator . }
+  OPTIONAL { ?dataset <https://schema.org/publisher> ?publisher . }
+  OPTIONAL { ?dataset <https://schema.org/additionalType> ?additionalType . }
+  OPTIONAL { ?dataset <https://schema.org/datePublished> ?datePublished . }
+  OPTIONAL { ?dataset <https://schema.org/educationalUse> ?educationalUse . }
+  OPTIONAL { ?dataset <https://schema.org/distribution> ?distribution . }
+  OPTIONAL { ?dataset <https://schema.org/url> ?url . }
+  OPTIONAL { ?dataset <https://schema.org/conditionsOfAccess> ?conditionsOfAccess . }
+  OPTIONAL { ?dataset <https://schema.org/contributor> ?contributor . }
+  OPTIONAL { ?dataset <https://schema.org/inLanguage> ?inLanguage . }
+  OPTIONAL { ?dataset <https://schema.org/producer> ?producer . }
 }
 GROUP BY ?additionalType ?datePublished ?conditionsOfAccess ?dataset
 
@@ -410,7 +411,7 @@ This operation is useful for analyzing the geographical distribution of institut
 SELECT ?geonames ?label (COUNT(DISTINCT ?geonames) AS ?count)
 WHERE {
 ?organization a <https://schema.org/Organization> .
-?organization <http://schema.org/location> ?geonames .
+?organization <https://schema.org/location> ?geonames .
 ?geonames rdfs:label ?label .
 }
 GROUP BY ?geonames ?label
@@ -507,7 +508,7 @@ SELECT ?label (COUNT(?item) AS ?count)
 WHERE {
 GRAPH ?g {
 ?item a <https://schema.org/Dataset> .
-?item <http://schema.org/additionalType> ?additionalType .
+?item <https://schema.org/additionalType> ?additionalType .
 ?additionalType rdfs:label ?label .
  }
 }
