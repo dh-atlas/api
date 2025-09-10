@@ -248,7 +248,7 @@ This operation is useful for gaining insight into the volume of scholarly resear
 ]
 
 
-#sparql PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?project) as ?count) WHERE { ?project a <http://xmlns.com/foaf/0.1/Agent>; a <https://schema.org/ResearchProject> . }
+#sparql PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?project) as ?count) WHERE { ?project a <https://schema.org/ResearchProject> . }
 
 
 
@@ -321,7 +321,7 @@ This operation is useful for understanding the institutional landscape represent
 ]
 
 
-#sparql PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?organization) as ?count) WHERE { ?organization a <http://xmlns.com/foaf/0.1/Agent>; a <https://schema.org/Organization> . }
+#sparql PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?organization) as ?count) WHERE { ?organization a <https://schema.org/Organization> . }
 
 
 
@@ -358,7 +358,7 @@ This operation is useful for understanding the human dimension of the research l
 ]
 
 
-#sparql PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?person) as ?count) WHERE { ?person a <http://xmlns.com/foaf/0.1/Agent>; a <https://schema.org/Person> . }
+#sparql PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?person) as ?count) WHERE { ?person a <https://schema.org/Person> . }
 
 
 
