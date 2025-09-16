@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  atlas_ramose:
+    build:
+      context: .
+      # Usa il multi-stage build per ottimizzare la memoria durante la build
+      target: runtime
+      # Configura gli argomenti di build per ottimizzare l'uso della RAM
+      args:
+        BUILDKIT_INLINE_CACHE: 1
+    image: angelodel80/atlas_ramose:latest
+    container_name: atlas_ramose
+    
+    # Limita le risorse per evitare che il container consumi tutta la RAM disponibile
+    deploy:
+      resources:
+        limits:
+          # Limita la memoria a 512MB (adatta in base alle tue esigenze)
+          memory: 512M
+          # Limita la CPU a 1 core
+          cpus: '1.0'
+        reservations:
+          # Riserva almeno 256MB di memoria
+          memory: 256M
+          cpus: '0.5'
+    
+    ports:
+      - "8000:8080"
+    
+    volumes:
+      # Mount di sola lettura per la configurazione (più sicuro)
+      - ./config:/config:ro
+      # Volume per i log dell'applicazione (opzionale ma utile per debugging)
+      - ./logs:/app/logs
+    
+    # Variabili d'ambiente per ottimizzare Python in produzione
+    environment:
+      # Limita la memoria che Python può allocare per ottimizzare l'uso su istanze con poca RAM
+      - PYTHONMALLOC=malloc
+      # Disabilita la generazione automatica di file .pyc per risparmiare I/O
+      - PYTHONDONTWRITEBYTECODE=1
+      # Forza l'output immediato per log migliori nei container
+      - PYTHONUNBUFFERED=1
+      # Ottimizza la garbage collection di Python per ridurre l'uso di memoria
+      - PYTHONGC=1
+    
+    # Policy di restart conservativa per evitare loop infiniti in caso di problemi
+    restart: unless-stopped
+    
+    # Health check per monitorare lo stato dell'applicazione
+    healthcheck:
+      # Controlla se l'applicazione risponde (adatta l'endpoint alle tue API)
+      test: ["CMD-SHELL", "python -c 'import urllib.request; urllib.request.urlopen(\"http://localhost:8080/health\")' || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Configurazioni di sicurezza
+    security_opt:
+      # Impedisce l'acquisizione di nuovi privilegi
+      - no-new-privileges:true
+    
+    # Configura i log per evitare che crescano indefinitamente
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# Network personalizzato per isolare il container (opzionale ma consigliato)
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      # Ottimizza le performance di rete
+      com.docker.network.driver.mtu: 1450
