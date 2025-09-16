@@ -1,0 +1,621 @@
+#url /api/v1
+#type api
+#base http://localhost:8000
+#method post
+#title DH ATLAS REST API
+#description This is the REST API for [DH ATLAS](https://dh-atlas.github.io), the Atlas of Italian Digital Cultural Heritage — a knowledge graph that maps international scholarly research related to Italian Cultural Heritage. The dataset provides structured metadata describing research products and projects within this domain.
+All the presented operations return documents in JSON format.
+If you wish to suggest additional functionalities for this API, please contact us.
+#version 0.0.1 (2025-08-01)
+#license This document is licensed with a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/legalcode), while the REST API itself has been created using [RAMOSE](https://github.com/opencitations/ramose), the *Restful API Manager Over SPARQL Endpoints* created by [Silvio Peroni](https://orcid.org/0000-0003-0530-4305), which is licensed with an [ISC license](https://opensource.org/licenses/ISC). All the data returned by this API are made freely available under a [Creative Commons public domain dedication (CC0)](https://creativecommons.org/publicdomain/zero/1.0/).
+#contacts [giorgia.rubin@ilc.cnr.it](mailto:giorgia.rubin@ilc.cnr.it)
+#endpoint https://projects.dharc.unibo.it/atlas/sparql
+
+
+
+
+#url /records
+#type operation
+#method get
+#description This operation retrieves descriptive metadata for each dataset included in the DH ATLAS knowledge graph. 
+
+The fields returned by this operation are:
+
+* *dataset*: the URI of the dataset
+* *names*: the title(s) of the dataset
+* *descriptions*: textual descriptions of the dataset
+* *creators*: individuals or organizations responsible for creating the dataset
+* *contributors*: entities that contributed to the dataset
+* *publishers*: entities that published the dataset
+* *languages*: the language(s) in which the dataset is available
+* *educationalUses*: intended educational uses of the dataset
+* *distributions*: links or references to the dataset's distribution formats
+* *urls*: web addresses associated with the dataset
+* *producers*: entities that produced the dataset
+* *additionalType*: a more specific type or classification of the dataset
+* *datePublished*: the publication date of the dataset
+* *conditionsOfAccess*: information about access conditions or restrictions
+
+Multiple values for each field are concatenated using " || " as a separator. 
+
+#call /records
+#field_type str(dataset) str(names) str(descriptions) str(creators) str(contributors) str(publishers) str(languages) str(educationalUses) str(distributions) str(urls) str(producers) str(additionalType) datetime(datePublished) str(conditionsOfAccess)
+#output_json [
+        {
+        "dataset": "https://w3id.org/dh-atlas/1729185052-855823",
+        "names": "VaSto - Varchi, Storia fiorentina Digital Edition",
+        "descriptions": "The Storia fiorentina by Benedetto Varchi (1503-1565) is presented as a genetic and annotated digital edition. It has been encoded following the TEI (Text Encoding Initiative) standard and made accessible through the EVT2 visualization software, which facilitates reading and exploring annotated texts.",
+        "creators": "https://w3id.org/dh-atlas/1729185527-9907804 || https://w3id.org/dh-atlas/1729185781-6054392 || https://w3id.org/dh-atlas/1728943988-693 || https://w3id.org/dh-atlas/1729184595-8947213",
+        "contributors": "https://w3id.org/dh-atlas/1729185987-532705 || https://w3id.org/dh-atlas/1729186168-953735 || https://w3id.org/dh-atlas/1729185884-2858903",
+        "publishers": "https://w3id.org/dh-atlas/1729185609-482096",
+        "languages": "http://publications.europa.eu/resource/authority/language/ITA",
+        "educationalUses": "https://vocabs.dariah.eu/tadirah/structuralAnalysis || https://vocabs.dariah.eu/tadirah/contentAnalysis",
+        "distributions": "https://github.com/ValentinaPasqual/ProgettoVasto/blob/master/evt2beta2/data/text/pilot_proemio.xml",
+        "urls": "https://dharc-org.github.io/progetto-vasto/index.html",
+        "producers": "https://w3id.org/dh-atlas/1729272121-9284637",
+        "additionalType": "https://w3id.org/dh-atlas/DigitalScholarlyEdition",
+        "datePublished": "2020-01-01",
+        "conditionsOfAccess": "http://purl.org/coar/access_right/c_abf2"
+    },
+    {
+        "dataset": "https://w3id.org/dh-atlas/1729187122-1272922",
+        "names": "Voyant tools",
+        "descriptions": "Voyant Tools is a web-based text reading and analysis environment. It is a free suite of in-browser text analysis tools designed to facilitate reading and interpretive practices for digital humanities students and scholars as well as for the general public.",
+        "creators": "https://w3id.org/dh-atlas/1729188763-9748292 || https://w3id.org/dh-atlas/1729188871-7909553",
+        "contributors": "https://w3id.org/dh-atlas/1729188865-017393 || https://w3id.org/dh-atlas/1729189344-7268312 || https://w3id.org/dh-atlas/1729190469-6318252 || https://w3id.org/dh-atlas/1729190508-1462588 || https://w3id.org/dh-atlas/1729190550-8474212 || https://w3id.org/dh-atlas/1729190593-8739011 || https://w3id.org/dh-atlas/1729190637-1519997 || https://w3id.org/dh-atlas/1729190688-9406993 || https://w3id.org/dh-atlas/1729190727-838245",
+        "publishers": "https://w3id.org/dh-atlas/1729185478-0480285",
+        "languages": "http://publications.europa.eu/resource/authority/language/ENG || http://publications.europa.eu/resource/authority/language/ITA || http://publications.europa.eu/resource/authority/language/ARA || http://publications.europa.eu/resource/authority/language/CES || http://publications.europa.eu/resource/authority/language/DEU || http://publications.europa.eu/resource/authority/language/BOS || http://publications.europa.eu/resource/authority/language/FRA || http://publications.europa.eu/resource/authority/language/JPN || http://publications.europa.eu/resource/authority/language/POR || http://publications.europa.eu/resource/authority/language/HRV || http://publications.europa.eu/resource/authority/language/RUS || http://publications.europa.eu/resource/authority/language/SRP || http://publications.europa.eu/resource/authority/language/HEB",
+        "educationalUses": "https://vocabs.dariah.eu/tadirah/discovering || https://vocabs.dariah.eu/tadirah/contentAnalysis || https://vocabs.dariah.eu/tadirah/structuralAnalysis || https://vocabs.dariah.eu/tadirah/visualAnalysis",
+        "distributions": "https://github.com/voyanttools/VoyantServer/archive/refs/tags/2.6.14.zip",
+        "urls": "https://voyant-tools.org/",
+        "producers": "",
+        "additionalType": "https://w3id.org/dh-atlas/Software",
+        "datePublished": "2016-01-01",
+        "conditionsOfAccess": "http://purl.org/coar/access_right/c_abf2"
+    }
+]
+
+
+#sparql PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> 
+
+SELECT ?dataset
+  (GROUP_CONCAT(DISTINCT ?name; separator=" || ") AS ?names)
+  (GROUP_CONCAT(DISTINCT ?description; separator=" || ") AS ?descriptions)
+  (GROUP_CONCAT(DISTINCT ?creator; separator=" || ") AS ?creators)
+  (GROUP_CONCAT(DISTINCT ?contributor; separator=" || ") AS ?contributors)
+  (GROUP_CONCAT(DISTINCT ?publisher; separator=" || ") AS ?publishers)
+  (GROUP_CONCAT(DISTINCT ?inLanguage; separator=" || ") AS ?languages)
+  (GROUP_CONCAT(DISTINCT ?educationalUse; separator=" || ") AS ?educationalUses)
+  (GROUP_CONCAT(DISTINCT ?distribution; separator=" || ") AS ?distributions)
+  (GROUP_CONCAT(DISTINCT ?url; separator=" || ") AS ?urls)
+  (GROUP_CONCAT(DISTINCT ?producer; separator=" || ") AS ?producers)
+  ?additionalType
+  ?datePublished
+  ?conditionsOfAccess
+
+WHERE {
+  ?dataset <https://schema.org/name> ?name ; rdf:type <https://schema.org/Dataset> .
+  OPTIONAL { ?dataset <https://schema.org/description> ?description . }
+  OPTIONAL { ?dataset <https://schema.org/creator> ?creator . }
+  OPTIONAL { ?dataset <https://schema.org/publisher> ?publisher . }
+  OPTIONAL { ?dataset <https://schema.org/additionalType> ?additionalType . }
+  OPTIONAL { ?dataset <https://schema.org/datePublished> ?datePublished . }
+  OPTIONAL { ?dataset <https://schema.org/educationalUse> ?educationalUse . }
+  OPTIONAL { ?dataset <https://schema.org/distribution> ?distribution . }
+  OPTIONAL { ?dataset <https://schema.org/url> ?url . }
+  OPTIONAL { ?dataset <https://schema.org/conditionsOfAccess> ?conditionsOfAccess . }
+  OPTIONAL { ?dataset <https://schema.org/contributor> ?contributor . }
+  OPTIONAL { ?dataset <https://schema.org/inLanguage> ?inLanguage . }
+  OPTIONAL { ?dataset <https://schema.org/producer> ?producer . }
+}
+GROUP BY ?additionalType ?datePublished ?conditionsOfAccess ?dataset
+
+
+
+
+
+#url /classes/{pid}
+#type operation
+#pid str(https://w3id\.org/dh-atlas/.+)
+#method get
+#description This operation retrieves the RDF classes to which a given resource belongs within the DH ATLAS knowledge graph. The input parameter pid must be a valid URI identifying a resource in the graph. 
+
+The field returned by this operation is:
+
+* *classes*: a list of URIs representing the RDF types (rdf:type) associated with the resource.
+
+This operation is useful for understanding the semantic classification of a resource, such as whether it is a Dataset, a DigitalScholarlyEdition, or another defined type.
+
+#call /classes/https://w3id.org/dh-atlas/1743001460-3508337
+#field_type str(classes) 
+#output_json [
+    {
+        "classes": "https://schema.org/Dataset;  https://w3id.org/dh-atlas/DigitalScholarlyEdition"
+    }
+]
+
+
+#sparql SELECT DISTINCT (GROUP_CONCAT(DISTINCT ?class; SEPARATOR=";  ") AS ?classes)  WHERE {<[[pid]]> a ?class}
+
+
+
+
+#url /labels/{pid}
+#type operation
+#pid str(https://w3id\.org/dh-atlas/.+)
+#method get
+#description This operation retrieves the label (i.e., the title or name) of a resource in the DH ATLAS knowledge graph. The input parameter pid must be a valid URI identifying a resource in the graph. 
+
+The field returned by this operation is:
+
+* *label*: a literal string representing the title of the resource. If available, the label may include language tags (e.g., "en" for English).
+
+This operation is useful for retrieving a human-readable name for a resource, which can be used in user interfaces, summaries, or listings.
+
+#call /labels/https://w3id.org/dh-atlas/1743001460-3508337
+#field_type str(label)
+#output_json [
+  {
+  "head" : {
+    "vars" : [ "label" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Betrothed (PhiloEditor)"
+      }
+    } ]
+  }
+}
+]
+
+
+#sparql PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+        SELECT DISTINCT ?label WHERE {
+                <[[pid]]> (rdfs:label | skos:prefLabel) ?label
+        } 
+
+
+
+
+#url /stats/entities
+#type operation
+#method get
+#description This operation retrieves the total number of distinct entities recorded in the DH ATLAS knowledge graph.
+
+The field returned by this operation is:
+
+* *count*: an integer representing the number of unique entities currently stored in the graph.
+
+This operation provides a quick overview of the graph’s size and is useful for monitoring its growth or for statistical reporting.
+
+#call /stats/entities
+#field_type str(count)
+#output_json [
+{
+  "head" : {
+    "vars" : [ "count" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "242"
+      }
+    } ]
+  }
+}
+]
+
+
+#sparql PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?entity) as ?count) WHERE { ?entity a ?class . }
+
+
+
+
+#url /stats/projects
+#type operation
+#method get
+#description This operation retrieves the total number of research projects recorded in the DH ATLAS knowledge graph.
+
+The field returned by this operation is:
+
+* *count*: an integer representing the number of distinct research projects currently stored in the graph.
+
+This operation is useful for gaining insight into the volume of scholarly research initiatives documented in DH ATLAS.
+
+#call /stats/projects
+#field_type str(count)
+#output_json [
+{
+  "head" : {
+    "vars" : [ "count" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "14"
+      }
+    } ]
+  }
+}
+]
+
+
+#sparql PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?project) as ?count) WHERE { ?project a <https://schema.org/ResearchProject> . }
+
+
+
+
+#url /stats/products
+#type operation
+#method get
+#description This operation retrieves the total number of research products recorded in the DH ATLAS knowledge graph. 
+
+The field returned by this operation is:
+
+* *count*: an integer representing the number of distinct research products currently stored in the graph.
+
+This operation is useful for assessing the volume of documented research outputs and for generating statistical summaries of the dataset.
+
+#call /stats/products
+#field_type str(count)
+#output_json [
+{
+  "head" : {
+    "vars" : [ "count" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "37"
+      }
+    } ]
+  }
+}
+]
+
+
+#sparql PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?product) as ?count) WHERE { ?product a <https://schema.org/Dataset> . }
+
+
+
+
+
+#url /stats/organizations
+#type operation
+#method get
+#description This operation retrieves the total number of organizations recorded in the DH ATLAS knowledge graph. 
+
+The field returned by this operation is:
+
+* *count*: an integer representing the number of distinct organizations currently stored in the graph.
+
+This operation is useful for understanding the institutional landscape represented in DH ATLAS and for generating statistical summaries of participating entities.
+
+#call /stats/organizations
+#field_type str(count)
+#output_json [
+{
+  "head" : {
+    "vars" : [ "count" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "73"
+      }
+    } ]
+  }
+}
+]
+
+
+#sparql PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?organization) as ?count) WHERE { ?organization a <https://schema.org/Organization> . }
+
+
+
+
+
+#url /stats/persons
+#type operation
+#method get
+#description This operation retrieves the total number of researchers recorded in the DH ATLAS knowledge graph.
+
+The field returned by this operation is:
+
+* *count*: an integer representing the number of distinct researchers currently stored in the graph.
+
+This operation is useful for understanding the human dimension of the research landscape represented in DH ATLAS and for generating statistical summaries of individual contributors.
+
+#call /stats/persons
+#field_type str(count)
+#output_json [
+{
+  "head" : {
+    "vars" : [ "count" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "98"
+      }
+    } ]
+  }
+}
+]
+
+
+#sparql PREFIX dbpedia: <http://dbpedia.org/ontology> SELECT (COUNT(DISTINCT ?person) as ?count) WHERE { ?person a <https://schema.org/Person> . }
+
+
+
+
+
+#url /stats/organizations/by-location
+#type operation
+#method get
+#description This operation retrieves the number of organizations recorded in the DH ATLAS knowledge graph, grouped by their associated geographical location. 
+
+The fields returned by this operation are:
+
+* *geonames*: the URI of the location (from GeoNames)
+* *label*: the name of the location (e.g., city or region)
+* *count*: the number of organizations associated with that location
+
+This operation is useful for analyzing the geographical distribution of institutions involved in research on Italian digital cultural heritage.
+
+#call /stats/organizations/by-location
+#field_type str(geonames) str(label) str(count) 
+#output_json [
+  {
+  "head" : {
+    "vars" : [ "geonames", "label", "count" ]
+  },
+  "results" : {
+    "bindings" : [{
+      "geonames" : {
+        "type" : "uri",
+        "value" : "https://sws.geonames.org/6141256"
+      },
+      "label" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#string",
+        "type" : "literal",
+        "value" : "Saskatoon"
+      },
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "1"
+      }
+    } ]
+  }
+}
+]
+
+
+#sparql PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?geonames ?label (COUNT(DISTINCT ?geonames) AS ?count)
+WHERE {
+?organization a <https://schema.org/Organization> .
+?organization <https://schema.org/location> ?geonames .
+?geonames rdfs:label ?label .
+}
+GROUP BY ?geonames ?label
+ORDER BY ?geonames
+
+
+
+
+
+#url /stats/products/by-additional-type
+#type operation
+#method get
+#description This operation retrieves the number of research products, grouped by their respective class ordered in descending order by count.
+
+The fields returned by this operation are:
+
+* *label*: the name of the class or type of research product (e.g., Digital Scholarly Edition, Linked Open Data, Software)
+* *count*: the number of research products associated with that class
+
+This operation is useful for analyzing the typological distribution of research outputs in the DH ATLAS knowledge graph.
+
+#call /stats/products/by-additional-type
+#field_type str(label) str(count)
+#output_json [
+{
+  "head" : {
+    "vars" : [ "label", "count" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "label" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#string",
+        "type" : "literal",
+        "value" : "Digital Scholarly Edition"
+      },
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "17"
+      }
+    }, {
+      "label" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#string",
+        "type" : "literal",
+        "value" : "Linked Open Data"
+      },
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "6"
+      }
+    }, {
+      "label" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#string",
+        "type" : "literal",
+        "value" : "Software"
+      },
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "5"
+      }
+    }, {
+      "label" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#string",
+        "type" : "literal",
+        "value" : "Text Collection"
+      },
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "5"
+      }
+    }, {
+      "label" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#string",
+        "type" : "literal",
+        "value" : "Ontology"
+      },
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "4"
+      }
+    } ]
+  }
+}
+]
+
+
+#sparql PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?label (COUNT(?item) AS ?count)
+WHERE {
+GRAPH ?g {
+?item a <https://schema.org/Dataset> .
+?item <https://schema.org/additionalType> ?additionalType .
+?additionalType rdfs:label ?label .
+ }
+}
+GROUP BY ?label
+ORDER BY DESC(?count)
+
+
+
+
+#url /stats/products/by-organization
+#type operation
+#method get
+#description This operation retrieves the number of research products recorded in the DH ATLAS knowledge graph, grouped by the organization responsible for their production, ordered in descending order by count. 
+
+The fields returned by this operation are:
+
+* *label*: the name of the organization (e.g., Ca' Foscari University of Venice, University of Pisa)
+* *count*: the number of research products associated with that organization
+
+This operation is useful for analyzing the institutional contribution to research on Italian digital cultural heritage and for identifying key producers within the DH ATLAS dataset.
+
+#call /stats/products/by-organization
+#field_type str(label) str(count) 
+#output_json [
+  {
+  "head" : {
+    "vars" : [ "label", "count" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "label" : {
+        "type" : "literal",
+        "value" : "/DH.ARC - Digital Humanities Advanced Research Centre "
+      },
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "5"
+      }
+    }, {
+      "label" : {
+        "type" : "literal",
+        "value" : "Ca' Foscari University of Venice"
+      },
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "3"
+      }
+    }, {
+      "label" : {
+        "type" : "literal",
+        "value" : "University of Pisa"
+      },
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "2"
+      }
+    }, {
+      "label" : {
+        "type" : "literal",
+        "value" : "Laboratorio di Cultura Digitale (Università di Pisa)"
+      },
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "2"
+      }
+    }, {
+      "label" : {
+        "type" : "literal",
+        "value" : "University of Basilicata"
+      },
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "2"
+      }
+    }, {
+      "label" : {
+        "type" : "literal",
+        "value" : "University of Bologna"
+      },
+      "count" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#integer",
+        "type" : "literal",
+        "value" : "2"
+      }
+    } ]
+  }
+}
+]
+
+
+#sparql PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?label (COUNT(DISTINCT ?researchProduct) AS ?count)
+WHERE {
+ ?researchProduct a <https://schema.org/Dataset> .
+ ?researchProduct ?contributor ?organization .
+ 
+GRAPH ?g {
+?organization a <https://schema.org/Organization> .
+?organization rdfs:label ?organizationLabel .
+BIND(STR(?organizationLabel) AS ?label)
+}
+}
+GROUP BY ?label
+ORDER BY DESC(?count)
