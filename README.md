@@ -2,8 +2,6 @@
 
 This repository contains the initial configuration for generating a REST API for the DH ATLAS project using [RAMOSE](https://github.com/opencitations/ramose).
 
-> ⚠️ Version 0.0.1 unofficial: the API currently works only in a local environment (`localhost`).
-
 ---
 
 ## 📘 Description
