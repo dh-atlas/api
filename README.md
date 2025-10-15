@@ -8,15 +8,15 @@ This repository contains the initial configuration for generating a REST API for
 
 DH ATLAS is a knowledge graph that maps international research on Italian digital cultural heritage. This REST API allows querying the graph via SPARQL endpoints, offering semantic and statistical operations over the data.
 
-The configuration is defined in the `test.hf` file, compatible with RAMOSE.
+The configuration is defined in the `config.hf` file, compatible with RAMOSE.
 
 ---
 
 ## Repository v0.0.1 Contents
 
-- `test.hf`: RAMOSE configuration file for the REST API.
+- `config.hf`: RAMOSE configuration file for the REST API.
 - `README.md`: this file.
-- `start.sh`: script to launch RAMOSE.
+- `config.sh`: script to launch RAMOSE.
 - `requirements.txt`: Python dependencies.
 
 ---
@@ -46,7 +46,7 @@ python setup.py install
 ```
 4. Run the API locally: From the root of your DH ATLAS API repository:
    ```bash
-   ramose test.hf
+   ramose config.hf
    ```
 5. Access the API documentation: Open your browser and go to:
    ```bash
